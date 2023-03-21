@@ -1,35 +1,31 @@
-PROGRAM PrimeNumbers(INPUT, OUTPUT);
+PROGRAM Prime(INPUT, OUTPUT);
 CONST
-  Max = 20;
+  Max = 100;
 TYPE
   IntSet = SET OF 2 .. Max;
 VAR
-  Current, NumberInSet: INTEGER;
+  Num, NumSet: INTEGER;
   S1: IntSet;
 BEGIN
   S1 := [2 .. Max];
-  Current := 2;
-  WHILE Current <= Max
+  Num := 2;
+  WHILE Num <> Max
   DO
     BEGIN
-      NumberInSet := Current + 1;
-      WHILE NumberInSet <= Max
+      NumSet := Num;
+      WHILE NumSet <= Max 
       DO
         BEGIN
-          IF (NumberInSet mod Current = 0)
-          THEN
-            S1 := S1 - [NumberInSet];
-          NumberInSet := NumberInSet + 1
+          S1 := S1 - [NumSet];
+          NumSet := NumSet + Num
         END;
-     Current := Current + 1
-   END; 
-  Current := 2;
-  WHILE Current <= Max
-  DO
-    BEGIN
-      IF Current IN S1
-      THEN
-        WRITELN(Current);
-      Current := Current + 1
+      WRITELN(Num);
+      WHILE (NOT(Num IN S1)) AND (Num < Max)
+      DO
+        Num := Num + 1   
     END
 END.
+      
+  
+          
+             
