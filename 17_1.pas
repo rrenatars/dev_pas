@@ -1,4 +1,4 @@
-PROGRAM TestProcedure(INPUT, OUTPUT);
+PROGRAM Sum(INPUT, OUTPUT);
 VAR
   Digit, Sum: INTEGER;
 
@@ -13,11 +13,7 @@ BEGIN
   IF D = '6' THEN Result := 6 ELSE
   IF D = '7' THEN Result := 7 ELSE
   IF D = '8' THEN Result := 8 ELSE
-  IF D = '9' 
-  THEN 
-    Result := 9 
-  ELSE
-    Result := -1
+  IF D = '9' THEN Result := 9 
 END;
 
 PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
@@ -26,14 +22,13 @@ PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
 VAR
   Ch: CHAR;
 BEGIN
-  IF (NOT EOLN(F)) AND (D <> -1)
+  D := -1;
+  IF NOT EOLN(F)
   THEN
     BEGIN
       READ(F, Ch);
       CharToDigit(Ch, D)
-    END
-  ELSE
-    D := -1
+    END 
 END;
 
 BEGIN
