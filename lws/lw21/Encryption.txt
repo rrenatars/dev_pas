@@ -20,10 +20,9 @@ SH
 T*
 UF
 VE
-WT
+WG
 XC
 YB
 ZA
-!5
-&4
  8
+)/

@@ -1,7 +1,7 @@
 PROGRAM SortDate(INPUT, OUTPUT);
+USES Date;
 TYPE
-  Month = (NoMonth, Jan, Feb, Mar, Apr, May, Jun,
-                    Jul, Aug, Sep, Oct, Nov, Dec);
+  Month = (NoMonth, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec);
   DayNum = 1..31;
   Date   = RECORD
              Mo : Month;
@@ -27,35 +27,36 @@ BEGIN{SortDate}
   RESET(DateFile);
   WHILE NOT EOF(FInput)
   DO
-    {Поместить новую дату в DateFile в соответствующее место}
+    {Поместить новую дату в DateFile в соответстующее место}
     BEGIN
-    ReadDate(FInput,D);
-    READLN(FInput);
-    IF (D.Mo <> NoMonth)
-    THEN
-      BEGIN
-        {копируем элементы меньшие,чем D из DateFile в TFile}
-        REWRITE(TFile);
-        Copying := TRUE;
-        WHILE NOT EOF(DateFile) AND Copying
-        DO
-          BEGIN
-            READ(DateFile, VarDate);
-            IF Less(VarDate,D)
-            THEN
-              WRITE(TFile, VarDate)
-            ELSE
-              Copying := FALSE
-          END
-      END;
-
-        {копируем D в TFile}
-        WRITE(TFile, D);
-        {копируем остаток DateFile в TFile}
-        {копируем TFile в DateFile}
-      END;
+      ReadDate(FInput,D);
+      READLN(FInput);
+      IF (D.Mo <> NoMonth)
+      THEN
+        BEGIN
+          {Копируем элементы меньште, чем D из DateFile в TFile}
+          REWRITE(TFile);
+          Copying := TRUE;
+          WHILE NOT EOF(DateFile) AND Copying
+          DO
+            BEGIN
+              READ(DateFile, VarDate);
+              IF Less(VarDate,D)
+              THEN
+                WRITE(TFile, VarDate)
+              ELSE
+                Copying := FALSE
+            END;
+          {Копируем D в TFile}
+          WRITE(TFile, D);
+          {Копируем остаток DateFile в TFile}
+          RESET(TFile);
+          CopyOut(DateFile);
+          {Копируем TFile в DateFile}
+      END
   END;
-
   {Копируем DateFile в OUTPUT}
+  RESET(DateFile);
+  CopyOut(DateFile);
 END.{SortDate}
 

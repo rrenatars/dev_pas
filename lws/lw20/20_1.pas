@@ -44,19 +44,18 @@ BEGIN
     END
 END;
 
-BEGIN
+BEGIN    
   WHILE NOT EOLN
   DO
     BEGIN
       IF ReadLetter(INPUT, Ch)
       THEN
-        BEGIN
+        BEGIN        
           Matrix := ChooseMatrix(Ch);
-          PrintMatrix(Matrix);
-          WRITELN
+          PrintMatrix(Matrix)
         END
-      ELSE
-        WRITELN('???????????? ??????')
-    END;
+      ELSE                  
+        WRITELN('Некорректные данные')
+    END; 
   WRITELN
 END.
