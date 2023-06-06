@@ -6,46 +6,54 @@ CONST
 TYPE
   Str = ARRAY [1 .. Len] OF CHAR;  
   Chiper = ARRAY [' ' .. 'Z'] OF CHAR;
+  SetChar = SET OF CHAR;
 VAR
   Msg: Str;
   Code: Chiper;
   I: INTEGER;
   F: TEXT;
+  SymbolSet: SetChar;
 
-PROCEDURE InitializeDecode(VAR FIn: TEXT; VAR Code: Chiper);
+PROCEDURE Initialize(VAR FIn: TEXT; VAR Code: Chiper);
 VAR
   Key, Value: CHAR;
 {Присвоить Code шифр замены}
 BEGIN {Initialize}
-  RESET(FIn);
+  {Code['A'] := 'Z';}
+  RESET(FIn); 
   WHILE NOT EOF(FIn)
   DO
     BEGIN
       READ(FIn, Key);
-      READLN(FIn, Value);
-      Code[Value] := Key
-    END 
-END;  {Initialize}
+      IF Key IN [' ', 'A' .. 'Z']
+      THEN
+        BEGIN
+          READLN(FIn, Value);
+          Code[Value] := Key;
+          SymbolSet := SymbolSet + [Key] + [Value]
+        END 
+    END
+END;  {Initialize}  
 
 PROCEDURE Decode(VAR S: Str; VAR I: INTEGER);
 {Выводит символы из Code, соответствующие символам из S}
 VAR
   Index: 1 .. I;
-BEGIN {Encode}
+BEGIN {Decode}
   FOR Index := 1 TO I
   DO
-    IF S[Index] IN CHAR
+    IF S[Index] IN SymbolSet
     THEN 
       WRITE(Code[S[Index]])
     ELSE
       WRITE(S[Index]);
   WRITELN
-END;  {Encode}
+END;  {Decode}
 
-BEGIN {Encryption}
+BEGIN {Decryption}
   ASSIGN(F, 'Encryption.txt');
   {Инициализировать Code}
-  InitializeDecode(F, Code);
+  Initialize(F, Code);
   WHILE NOT EOF
   DO
     BEGIN
@@ -65,6 +73,5 @@ BEGIN {Encryption}
       THEN
         Decode(Msg, I)
     END
-END.  {Encryption}
-
+END.  {Decryption}
 

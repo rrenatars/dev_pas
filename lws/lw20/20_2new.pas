@@ -9,7 +9,6 @@ VAR
   CounterOfReadChars, PositionsCounter, PositionsString: INTEGER; 
   F: TEXT;
   IsValidLetter: BOOLEAN;
-  I: INTEGER;
   
   
 FUNCTION ReadLetter(VAR FIn: TEXT; VAR Ch: CHAR): BOOLEAN;
@@ -88,14 +87,7 @@ BEGIN
                   THEN
                     PositionsSet := PositionsSet + [PositionsCounter - (5 * PositionsString) + 5 * (CounterOfReadChars - 1) + (50 * PositionsString)]
                 END
-            END;   
-          FOR I := 1 TO 250
-          DO
-            BEGIN
-              IF I IN PositionsSet
-              THEN
-                WRITELN(I)
-            END
+            END   
         END
       ELSE
         IsValidLetter := FALSE
@@ -106,5 +98,6 @@ BEGIN
   ELSE
     WRITELN('Некорректные данные')
 END.
+
 
 
